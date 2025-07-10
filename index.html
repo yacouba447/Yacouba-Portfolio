@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- BASE HREF CORRIGÉ POUR GITHUB PAGES -->
+  <base href="/Yacouba-Portfolio/">
+  
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="Portfolio de Yacouba GARIKO - Développeur Flutter">
+  
+  <!-- Viewport pour le responsive -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <!-- Méta-données pour les réseaux sociaux -->
+  <meta property="og:title" content="Portfolio | Yacouba GARIKO">
+  <meta property="og:description" content="Développeur Flutter & Entrepreneur">
+  <meta property="og:image" content="https://yacouba447.github.io/Yacouba-Portfolio/assets/social_preview.png">
+  
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Yacouba Portfolio">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <link rel="icon" type="image/png" href="favicon.png"/>
+  
+  <title>Portfolio | Yacouba GARIKO</title>
+  <link rel="manifest" href="manifest.json">
+
+  <script>
+    // The value below is injected by flutter build, do not touch.
+    var serviceWorkerVersion = '"3301630268"';
+  </script>
+  
+  <!-- Chargement optimisé de Flutter -->
+  <script src="flutter.js" defer></script>
+</head>
+<body>
+  <!-- Écran de chargement visible immédiatement -->
+  <div id="loading" style="position:fixed;top:0;left:0;width:100%;height:100%;background:black;color:white;display:flex;justify-content:center;align-items:center;z-index:9999;">
+    <h1>Chargement du portfolio...</h1>
+  </div>
+
+  <script>
+    window.addEventListener('load', function() {
+      // Vérifie si Flutter est supporté
+      if (!_flutter.canRunApp) {
+        document.getElementById('loading').innerHTML = "<h1>Votre navigateur ne support pas Flutter Web</h1>";
+        return;
+      }
+
+      _flutter.loader.load({
+        serviceWorker: {
+          serviceWorkerVersion: serviceWorkerVersion,
+          serviceWorkerPath: 'flutter_service_worker.js?v=' + serviceWorkerVersion,
+        },
+        onEntrypointLoaded: async function(engineInitializer) {
+          try {
+            const appRunner = await engineInitializer.initializeEngine();
+            await appRunner.runApp();
+            
+            // Cache le loader après le premier rendu
+            window.addEventListener('flutter-first-frame', function() {
+              document.getElementById('loading').style.display = 'none';
+            });
+          } catch (error) {
+            console.error('Initialization error:', error);
+            document.getElementById('loading').innerHTML = `
+              <h1>Erreur de chargement</h1>
+              <p>${error.message}</p>
+              <p><a href="/Yacouba-Portfolio/">Réessayer</a></p>
+            `;
+          }
+        }
+      });
+    });
+  </script>
+  
+  <!-- Fallback pour les navigateurs sans JavaScript -->
+  <noscript>
+    <h1>Portfolio de Yacouba GARIKO</h1>
+    <p>JavaScript est requis pour afficher ce portfolio. Veuillez activer JavaScript dans votre navigateur.</p>
+    <p>Visitez mon <a href="https://github.com/yacouba447">GitHub</a> en attendant.</p>
+  </noscript>
+</body>
+</html>
